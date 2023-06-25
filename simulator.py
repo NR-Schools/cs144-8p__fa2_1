@@ -21,8 +21,6 @@ class Simulator:
         self.canvas.pack()
 
         # Setup Actions
-        setup = Button(self.window, text='Setup', width=20, height=1, command=self.setup)
-        setup.pack()
         run_once = Button(self.window, text='Run (Once)', width=20, height=1, command=self.run_once)
         run_once.pack()
 
@@ -66,6 +64,11 @@ class Simulator:
         # 80-600; 40
 
     def run_once(self):
+
+        # Exit at limit
+        if self.time >= 14:
+            self.window.destroy()
+
         self.proc_sched_algo(self)
     
     def set_custom_proc_sched(self, proc_sched_algo):

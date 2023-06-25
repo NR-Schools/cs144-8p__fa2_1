@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Dell\Downloads\Mapua\4th\CS144-8P\env"
+VIRTUAL_ENV="C:\Users\Dell\Downloads\Mapua\4th\CS144-8P\Week 5\fa2_1\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

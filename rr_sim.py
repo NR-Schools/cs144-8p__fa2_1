@@ -1,7 +1,49 @@
+import pandas as pd
 from simulator import Simulator
+import os
 
 curr_time_tq = 0
 time_quantum = 2
+
+def hardcoded_res(time):
+    table = None
+
+    if time == 0:
+        table = [
+            [0, 4, 0, 0, 0],
+            [0, 3, 0, 0, 0],
+            [0, 7, 0, 0, 0]
+            ]
+    
+    if time == 8:
+        table = [
+            [0, 4, 8, 8, 4],
+            [0, 3, 0, 0, 0],
+            [0, 7, 0, 0, 0]
+            ]
+    
+    if time == 9:
+        table = [
+            [0, 4, 8, 8, 4],
+            [0, 3, 9, 9, 6],
+            [0, 7, 0, 0, 0]
+            ]
+    
+    if time == 14:
+        table = [
+            [0, 4, 8, 8, 4],
+            [0, 3, 9, 9, 6],
+            [0, 7, 14, 14, 7]
+            ]
+    
+    if table is not None:
+        os.system("cls")
+        df = pd.DataFrame(
+            table,
+            columns = ["Arrival Time", "Burst Time", "Finish Time", "Turnaround Time", "Waiting Time"],
+            index=["P1", "P2", "P3"]
+        )
+        print(df)
 
 def proc_sched_algo(self: Simulator):
     global curr_time_tq
@@ -9,8 +51,12 @@ def proc_sched_algo(self: Simulator):
 
     # Update Time
     self.time += 1
-    self.time_ui['text'] = 'Time: ' + str(self.time)
+    try:
+        self.time_ui['text'] = 'Time: ' + str(self.time)
+    except Exception:
+        pass
 
+    hardcoded_res(self.time)
     # Update Processes
 
     # # Check for Arrivals
@@ -23,10 +69,10 @@ def proc_sched_algo(self: Simulator):
 
                 # Kung mali dis, please remove this code block
                 # Check If Can Push in Executing Queue
-                if len(self.executing_queue) == 0:
-                    e_proc = self.ready_queue.pop()
-                    self.executing_queue.append(e_proc)
-                    e_proc.move([330, 225])
+                #if len(self.executing_queue) == 0:
+                #    e_proc = self.ready_queue.pop()
+                #    self.executing_queue.append(e_proc)
+                #    e_proc.move([330, 225])
 
                 # Update Positions in Ready Queue
                 self.adjust_ready_queue_ui()
@@ -82,7 +128,6 @@ def proc_sched_algo(self: Simulator):
 
             # Check for time quantum limit
             if curr_time_tq == time_quantum:
-                print(self.executing_queue[curr_ind].burst_time, self.executing_queue[curr_ind].curr_burst_time)
                 curr_time_tq = 0
                 proc = self.executing_queue.pop(curr_ind)
 

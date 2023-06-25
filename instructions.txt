@@ -1,0 +1,6 @@
+if possible, open mo sa vscode tas switch mo environment sa virtual environment para di magulo packages mo
+
+pede mag pip install lng pero pag ayaw
+
+pip install pandas lang
+

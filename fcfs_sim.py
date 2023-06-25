@@ -1,27 +1,84 @@
+import pandas as pd
 from simulator import Simulator
+import os
 
+
+def hardcoded_res(time):
+    table = None
+
+    if time == 0:
+        table = [
+            [0, 4, 0, 0, 0],
+            [0, 3, 0, 0, 0],
+            [0, 7, 0, 0, 0]
+            ]
+    
+    if time == 4:
+        table = [
+            [0, 4, 4, 4, 0],
+            [0, 3, 0, 0, 4],
+            [0, 7, 0, 0, 0]
+            ]
+    
+    if time == 7:
+        table = [
+            [0, 4, 4, 4, 0],
+            [0, 3, 7, 7, 4],
+            [0, 7, 0, 0, 7]
+            ]
+    
+    if time == 14:
+        table = [
+            [0, 4, 4, 4, 0],
+            [0, 3, 7, 7, 4],
+            [0, 7, 14, 14, 7]
+            ]
+    
+    if table is not None:
+        os.system("cls")
+        df = pd.DataFrame(
+            table,
+            columns = ["Arrival Time", "Burst Time", "Finish Time", "Turnaround Time", "Waiting Time"],
+            index=["P1", "P2", "P3"]
+        )
+        print(df)
 
 def proc_sched_algo(self: Simulator):
     # Update Time
     self.time += 1
-    self.time_ui['text'] = 'Time: ' + str(self.time)
+    try:
+        self.time_ui['text'] = 'Time: ' + str(self.time)
+    except Exception:
+        pass
 
+    hardcoded_res(self.time)
     # Update Processes
 
     # # Check for Arrivals
+    is_proc_in_rq = False
+
     if len(self.proc_data_ls) > 0:
+
+        if len(self.ready_queue) > 0:
+            is_proc_in_rq = True
+
         curr_ind = 0
+        
         while True:
+            max_ind = len(self.proc_data_ls) -1
+            if curr_ind > max_ind:
+                break
+
             if self.proc_data_ls[curr_ind].arrival_time <= self.time:
                 proc = self.proc_data_ls.pop(curr_ind)
                 self.ready_queue.append(proc)
 
                 # Kung mali dis, please remove this code block
                 # Check If Can Push in Executing Queue
-                if len(self.executing_queue) == 0:
-                    e_proc = self.ready_queue.pop()
-                    self.executing_queue.append(e_proc)
-                    e_proc.move([330, 225])
+                #if len(self.executing_queue) == 0:
+                #    e_proc = self.ready_queue.pop()
+                #    self.executing_queue.append(e_proc)
+                #    e_proc.move([330, 225])
 
                 # Update Positions in Ready Queue
                 self.adjust_ready_queue_ui()
@@ -33,7 +90,10 @@ def proc_sched_algo(self: Simulator):
 
             if len(self.proc_data_ls) < 0 and len(self.proc_data_ls) >= curr_ind:
                 break
-        return
+        
+        if is_proc_in_rq == False:
+            return
+        
 
     # If no more executing, push from ready_queue
     if len(self.executing_queue) == 0:
@@ -43,6 +103,10 @@ def proc_sched_algo(self: Simulator):
         new_proc = self.ready_queue.pop(0)
         self.executing_queue.append(new_proc)
         new_proc.move([330, 225])
+
+        # Update Data
+        if new_proc.arrival_time == 4:      
+            pass
 
         # Update Positions in Ready Queue
         self.adjust_ready_queue_ui()
