@@ -108,7 +108,7 @@ def proc_sched_algo(self: Simulator):
             break
 
 
-s = Simulator()
+s = Simulator("Round Robin")
 s.set_custom_proc_sched(proc_sched_algo)
 s.setup()
 s.run_once()

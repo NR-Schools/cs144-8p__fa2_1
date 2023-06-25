@@ -4,8 +4,9 @@ from objects.queue import Queue
 
 
 class Simulator:
-    def __init__(self) -> None:
-        self.window = Tk("Simulation")
+    def __init__(self, title: str) -> None:
+        self.window = Tk()
+        self.window.title(title)
         self._init_ui()
         self._init_logic()
 

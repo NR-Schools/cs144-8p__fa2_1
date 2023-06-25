@@ -71,7 +71,7 @@ def proc_sched_algo(self: Simulator):
             break
 
 
-s = Simulator()
+s = Simulator("First-Come, First-Served")
 s.set_custom_proc_sched(proc_sched_algo)
 s.setup()
 s.run_once()
