@@ -2,8 +2,6 @@ from tkinter import *
 from objects.process import Process
 from objects.queue import Queue
 
-import copy
-
 
 class Simulator:
     def __init__(self) -> None:
@@ -76,3 +74,14 @@ class Simulator:
         for (ind, ready_proc) in enumerate(self.ready_queue):
             x_pos = 600 - 40 * ind
             ready_proc.move([x_pos, 130])
+
+    def log_data(self, data):
+        row_str = ""
+        for item in data:
+            row_str += str(item).ljust(20)
+        print(row_str)
+
+    #log_data(["Process", "Remaining Time", "Time"])
+    #log_data(["P1", "Finished", "4"])
+    #log_data(["P2", "12", "16"])
+

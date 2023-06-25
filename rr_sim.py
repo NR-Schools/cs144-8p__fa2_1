@@ -21,6 +21,13 @@ def proc_sched_algo(self: Simulator):
                 proc = self.proc_data_ls.pop(curr_ind)
                 self.ready_queue.append(proc)
 
+                # Kung mali dis, please remove this code block
+                # Check If Can Push in Executing Queue
+                if len(self.executing_queue) == 0:
+                    e_proc = self.ready_queue.pop()
+                    self.executing_queue.append(e_proc)
+                    e_proc.move([330, 225])
+
                 # Update Positions in Ready Queue
                 self.adjust_ready_queue_ui()
             else:
