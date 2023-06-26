@@ -43,11 +43,12 @@ def hardcoded_res(time):
         )
         print(df)
 
-def calc_min_burst_time_from_ls(proc_list: list[Process]):
+def calc_min_burst_time_from_ls(proc_list: list[Process], time: int):
     min_ind = 0
     for ind, proc in enumerate(proc_list):
-        if proc.burst_time < proc_list[min_ind].burst_time:
-            min_ind = ind
+        if proc.arrival_time <= time:
+            if proc.burst_time < proc_list[min_ind].burst_time:
+                min_ind = ind
     
     return min_ind
 
@@ -77,7 +78,7 @@ def proc_sched_algo(self: Simulator):
                 break
             
             if self.proc_data_ls[curr_ind].arrival_time <= self.time:
-                curr_ind = calc_min_burst_time_from_ls(self.proc_data_ls)
+                curr_ind = calc_min_burst_time_from_ls(self.proc_data_ls, self.time)
                 proc = self.proc_data_ls.pop(curr_ind)
                 self.ready_queue.append(proc)
 

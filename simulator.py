@@ -20,6 +20,12 @@ class Simulator:
         self.canvas.configure(width=700, height=400, bg="#d1d1d1")
         self.canvas.pack()
 
+        # Ready Queue Label
+        self.canvas.create_text(90, 110, text="Ready Queue")
+
+        # Executing Queue Label
+        self.canvas.create_text(350, 210, text="Executing Queue")
+
         # Setup Actions
         run_once = Button(self.window, text='Run (Once)', width=20, height=1, command=self.run_once)
         run_once.pack()

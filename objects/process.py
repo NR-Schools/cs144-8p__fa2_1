@@ -53,7 +53,7 @@ class Process(BaseObject):
         self.is_moving = False
     
     def move_anim(self, new_pos):
-        move_rate = [30, 30]
+        move_rate = [10, 10]
 
         if abs(self.pos[0] - new_pos[0]) <= move_rate[0]:
             self.pos[0] = new_pos[0]
